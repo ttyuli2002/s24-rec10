@@ -1,5 +1,7 @@
 interface GameState {
   cells: Cell[];
+  currentPlayerMessage: string;
+  winnerMessage: string;
 }
 
 interface Cell {

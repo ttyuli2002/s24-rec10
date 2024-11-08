@@ -40,6 +40,18 @@ public class Game {
         return this.player;
     }
 
+    public String getCurrentPlayerMessage() {
+        return "Current Player: " + (this.player == Player.PLAYER0 ? "Player 0" : "Player 1");
+    }
+    
+    public String getWinnerMessage() {
+        Player winner = getWinner();
+        if (winner != null) {
+            return "Winner: " + (winner == Player.PLAYER0 ? "Player 0" : "Player 1");
+        }
+        return "No winner yet.";
+    }
+
     public Game play(int x, int y) {
         if (this.board.getCell(x, y) != null)
             return this;

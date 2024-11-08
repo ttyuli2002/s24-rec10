@@ -34,7 +34,11 @@ class App extends React.Component<Props, GameState> {
     /**
      * state has type GameState as specified in the class inheritance.
      */
-    this.state = { cells: [] }
+    this.state = {
+      cells: [],
+      currentPlayerMessage: "Current Player: Player 0",
+      winnerMessage: "No winner yet."
+    };
   }
 
   /**
@@ -45,13 +49,23 @@ class App extends React.Component<Props, GameState> {
   newGame = async () => {
     const response = await fetch('/newgame');
     const json = await response.json();
-    this.setState({ cells: json['cells'] });
+    console.log("Response from newGame:", json); // Check the keys here
+    this.setState({
+      cells: json['cells'],
+      currentPlayerMessage: json['currentPlayerMessage'],
+      winnerMessage: json['winnerMessage']
+    });
   }
 
   undo = async () => {
     const response = await fetch('/undo');
     const json = await response.json();
-    this.setState({ cells: json['cells'] });
+    console.log("Response from undo:", json); // Check the keys here
+    this.setState({
+      cells: json['cells'],
+      currentPlayerMessage: json['currentPlayerMessage'],
+      winnerMessage: json['winnerMessage']
+    });
   }
 
   /**
@@ -67,7 +81,12 @@ class App extends React.Component<Props, GameState> {
       e.preventDefault();
       const response = await fetch(`/play?x=${x}&y=${y}`)
       const json = await response.json();
-      this.setState({ cells: json['cells'] });
+      console.log("Response from play:", json); // Check the keys here
+      this.setState({
+        cells: json['cells'],
+        currentPlayerMessage: json['currentPlayerMessage'],
+        winnerMessage:  json['winnerMessage']
+      });
     }
   }
 
@@ -121,6 +140,10 @@ class App extends React.Component<Props, GameState> {
      */
     return (
       <div>
+        <div id="instructions">
+          <p>{this.state.currentPlayerMessage || "Waiting for current player..."}</p>
+          <p>{this.state.winnerMessage || "Game in progress..."}</p>
+        </div>
         <div id="board">
           {this.state.cells.map((cell, i) => this.createCell(cell, i))}
         </div>
