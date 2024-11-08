@@ -21,11 +21,23 @@
 #instructions {
   height: 5vh;
   background-color: white;
-  padding: 0px;
+  padding: 10px; /* Adjust the padding around the panel */
   margin: 0px;
   text-align: center;
   border: 1px solid black;
+  color: black;
+  font-size: 20px; /* Increase font size if necessary */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+
+#instructions p {
+  margin: 2px 0; /* Reduce vertical margin between lines */
+  padding: 0; /* Remove any default padding */
+}
+
 
 #bottombar button {
   width: 50%;
